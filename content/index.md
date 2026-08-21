@@ -35,4 +35,4 @@ description: Хронология, персонажи, места, тайны и
 
 ## Случайная статья
 
-<a href="./01-Хронология/Хронология-кампании" onclick="event.preventDefault();(async()=>{try{const base=new URL(window.location.pathname.endsWith('/')?window.location.pathname:window.location.pathname+'/',window.location.origin);const response=await fetch(new URL('static/contentIndex.json',base));if(!response.ok)throw new Error('Не удалось загрузить индекс статей');const index=await response.json();const pages=Object.values(index).filter(page=>{const path=String(page.filePath??'').replaceAll('\\','/');const name=path.split('/').pop()??'';return page.slug!=='index'&&!path.startsWith('99 Служебное/')&&name!=='README.md'&&!name.startsWith('0 Индекс')});if(pages.length===0)throw new Error('В индексе нет статей');const page=pages[Math.floor(Math.random()*pages.length)];const slug=String(page.slug).replace(/\/index$/,'');window.location.assign(new URL(encodeURI(slug),base).href)}catch(error){console.error(error);window.location.assign(this.href)}})()">🎲 Открыть случайную статью</a>
+<a href="./random.html" data-router-ignore>🎲 Открыть случайную статью</a>
