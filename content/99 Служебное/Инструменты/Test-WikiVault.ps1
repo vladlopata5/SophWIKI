@@ -21,7 +21,9 @@ $broken = [Collections.Generic.List[object]]::new()
 foreach ($file in $markdownFiles) {
     $text = Get-Content -Raw -LiteralPath $file.FullName
     foreach ($match in [regex]::Matches($text, '\[\[([^\]]+)\]\]')) {
-        $rawTarget = $match.Groups[1].Value
+        # Obsidian requires alias separators inside Markdown tables to be escaped
+        # as \|. Normalize them before splitting a wikilink into target and alias.
+        $rawTarget = $match.Groups[1].Value.Replace('\|', '|')
         $target = (($rawTarget -split '\|')[0] -split '#')[0].Trim()
         if (-not $target) {
             continue
@@ -84,4 +86,3 @@ foreach ($duplicate in $duplicates) {
 foreach ($item in ($broken | Sort-Object Target, File -Unique)) {
     "BROKEN_LINK=$($item.File) -> $($item.Target)"
 }
-
